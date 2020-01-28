@@ -58,19 +58,51 @@ function main() {
     };
 
         // -- game over screen
-    function createGameOverScreen() {};
-    function removeGameOverScreen() {};
+        function createGameOverScreen(score) {
+            gameOverScreen = buildDom(`
+              <main>
+                <h1>Game over</h1>
+                <p>Your score: <span>${score}</span></p>
+                <button>Restart</button>
+                </main>
+            `);
+          
+            var button = gameOverScreen.querySelector('button');
+            button.addEventListener('click', startGame);
+          
+            var span = gameOverScreen.querySelector('span');
+            span.innerText = score;
+          
+            document.body.appendChild(gameOverScreen);
+          }
 
-        // -- Setting the game state
+          function removeGameOverScreen() {
+            if (gameOverScreen !== undefined) {
+              gameOverScreen.remove();
+            }
+          }
+          
+
+        // -- Setting the game start
     function startGame() {
         removeSplashScreen();
         // we also need to add clearing of the gameOverScreen
         game = new Game();
         game.gameScreen = createGameScreen();
+        removeGameOverScreen();
         game.start();
           // End the game
+        game.passGameOverCallback(function() {
+            console.log('GO_check');		// <-- UPDATE
+            gameOver(game.player.score);					// <-- UPDATE
+          });
     };
-    function gameOver() {};
+    
+        function gameOver(score) {           
+            removeGameScreen();
+            createGameOverScreen(score);
+          }
+    
 
         // -- initialize Splash screen on initial start
     createSplashScreen();
@@ -79,6 +111,7 @@ function main() {
 
 // Runs the function `main` once all resources are loaded
 window.addEventListener('load', main);
+
 
 
 

@@ -8,21 +8,79 @@ function Player(canvas, lives) {
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
     this.direction = 0;
-    this.playerSpeed = 5;
-    this.windSpeed = 1;
+    this.apparentSpeed = 0;
+    this.score = 0;
+    
 }
 
 // setDirection()
 Player.prototype.setDirection = function(direction) {
     // +1 down -1 up
-    if (direction ==='left') this.direction = -1;
-    else if (direction === 'right') this.direction = 1;
+    if (direction ==='left' && this.direction > -90 ) this.direction = this.direction-30
+    else if (direction === 'right' && this.direction < 90) this.direction = this.direction + 30;
+
 };
 
+Player.prototype.updateApparentSpeed = function() {
+    switch (this.direction) {
+        case 0:
+            this.apparentSpeed = 1;
+            break;
+        case -30:
+            this.apparentSpeed = -1;
+            break;
+        case 30:
+            this.apparentSpeed = -1;
+            break;
+        case -90:
+            this.apparentSpeed = -1;
+            break;
+        case 90:    
+            this.apparentSpeed = -1;
+            break;
+        case -60:
+            this.apparentSpeed = -2;
+            break;
+        case 60:
+            this.apparentSpeed = -2;
+            break;
+
+    }
+    console.log('this.apparentSpeed', this.apparentSpeed);
+}
+
 Player.prototype.updatePosition = function() {
-    console.log(this.direction, this.playerSpeed);
-    this.x = this.x + this.direction * this.playerSpeed;
-    this.y = this.y + this.windSpeed;
+    
+    switch (this.direction) {
+        case 0:
+            this.x = this.x;
+            this.y = this.y + this.apparentSpeed;
+            break;
+        case -30:
+            this.x = this.x + this.apparentSpeed * 1;
+            this.y = this.y + this.apparentSpeed * 2;
+            break;
+        case 30:
+            this.x = this.x + this.apparentSpeed * -1;
+            this.y = this.y + this.apparentSpeed * 2;
+            break;
+        case -90:
+            this.x = this.x + this.apparentSpeed * 2;
+            this.y = this.y;
+            break;
+        case 90:    
+            this.x = this.x + this.apparentSpeed * -2;
+            this.y = this.y;
+            break;
+        case -60:
+            this.x = this.x + this.apparentSpeed * 2;
+            this.y = this.y + this.apparentSpeed * 1;
+            break;
+        case 60:
+            this.x = this.x + this.apparentSpeed * -2;
+            this.y = this.y + this.apparentSpeed * 1;
+            break;
+    }
 }
 
 //Player.prototype.didCollide = function(enemy) {};
@@ -33,13 +91,30 @@ Player.prototype.handleScreenCollision = function() {
     var screenLeft = 0;
     var screenRight = this.canvas.width - 50;
 
-    if (this.x < screenLeft) this.direction = 0;
-    else if (this.x > screenRight) this.direction = 0;
+    if (this.x < screenLeft) this.direction = 90;
+    else if (this.x > screenRight) this.direction = -90;
+
+    var screenTop = 0;
+    var screenBottom = this.canvas.height;
+
+    if (this.y < screenTop) {
+        this.score++;
+        console.log('this.score', this.score);
+        this.x = this.canvas.width / 2;
+        this.y = this.canvas.height / 2;
+    }
+
+    else if (this.y > screenBottom) {
+        this.removeLife();
+        this.x = this.canvas.width / 2;
+        this.y = this.canvas.height / 2;
+    }
 };
 
 // removeLife()
 Player.prototype.removeLife = function() {
     this.lives -=1;
+    console.log('this.lives', this.lives);
 };
 
 Player.prototype.draw = function() {
