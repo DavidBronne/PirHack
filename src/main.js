@@ -14,8 +14,11 @@ function main() {
         // -- splash screen
     function createSplashScreen() {
         splashScreen = buildDom(`
-        <main>
+        <main class="fill">
             <h1>PirHack</h1>
+            <p>A Pirate adventure<p>
+            <h2>Plot<h2>
+            <p>Description<p>
             <button>start</button>
         </main>
         `);

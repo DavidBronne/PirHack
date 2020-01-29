@@ -4,13 +4,13 @@ function Player(canvas, lives) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.lives = lives;
-    this.size = 50;
+    this.size = 100;
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
     this.direction = 0;
     this.apparentSpeed = 0;
     this.score = 0;
-    
+    this.imgBoat;
 }
 
 // setDirection()
@@ -117,15 +117,51 @@ Player.prototype.removeLife = function() {
     console.log('this.lives', this.lives);
 };
 
+// Player.prototype.draw = function() {
+//     this.ctx.fillStyle = '#66D3FA';
+//     // fillRect(x, y, width, height)
+//     this.ctx.fillRect(
+//         this.x,
+//         this.y,
+//         this.size,
+//         this.size,
+//     );
+// };
+
 Player.prototype.draw = function() {
-    this.ctx.fillStyle = '#66D3FA';
-    // fillRect(x, y, width, height)
-    this.ctx.fillRect(
-        this.x,
-        this.y,
-        this.size,
-        this.size,
-    );
+    
+    this.imgBoat = new Image();   // Create new <img> element
+    
+    switch (this.direction) {
+        case 0:
+            this.imgBoat.src = '../images/Pirate0.png'; // Set source path
+            break;
+        case -30:
+            this.imgBoat.src = '../images/Pirate-30.png'; // Set source path
+            break;
+        case 30:
+            this.imgBoat.src = '../images/Pirate+30.png'; // Set source path
+            break;
+        case -90:
+            this.imgBoat.src = '../images/Pirate-90.png'; // Set source path
+            break;
+        case 90:    
+            this.imgBoat.src = '../images/Pirate+90.png'; // Set source path
+            break;
+        case -60:
+            this.imgBoat.src = '../images/Pirate-600.png'; // Set source path
+            break;
+        case 60:
+            this.imgBoat.src = '../images/Pirate+600.png'; // Set source path
+            break;
+        default:
+            this.imgBoat.src = '../images/Pirate0.png'; // Set source path
+    };
+
+    this.ctx.drawImage(this.imgBoat, this.x, this.y, this.size, this.size);
+
 };
+
+
 
 
