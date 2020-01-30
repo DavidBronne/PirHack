@@ -182,28 +182,43 @@ Player.prototype.draw = function() {
     
     switch (this.boatAngle) {
         case 0:
-            this.imgBoat.src = './images/Pirate0.png'; // Set source path
-            break;
-        case -30:
-            this.imgBoat.src = './images/Pirate-30.png'; // Set source path
+            this.imgBoat.src = './images1/pirate000.png'; // Set source path
             break;
         case 30:
-            this.imgBoat.src = './images/Pirate+30.png'; // Set source path
-            break;
-        case -90:
-            this.imgBoat.src = './images/Pirate-90.png'; // Set source path
-            break;
-        case 90:    
-            this.imgBoat.src = './images/Pirate+90.png'; // Set source path
-            break;
-        case -60:
-            this.imgBoat.src = './images/Pirate-600.png'; // Set source path
+            this.imgBoat.src = './images1/pirate030.png'; // Set source path
             break;
         case 60:
-            this.imgBoat.src = './images/Pirate+600.png'; // Set source path
+            this.imgBoat.src = './images1/pirate060.png'; // Set source path
+            break;
+        case 90:
+            this.imgBoat.src = './images1/pirate090.png'; // Set source path
+            break;
+        case 120:    
+            this.imgBoat.src = './images1/pirate120.png'; // Set source path
+            break;
+        case 150:
+            this.imgBoat.src = './images1/pirate150.png'; // Set source path
+            break;
+        case 180:
+            this.imgBoat.src = './images1/pirate180.png'; // Set source path
+            break;
+        case 210:
+            this.imgBoat.src = './images1/pirate210.png'; // Set source path
+            break;
+        case 240:
+            this.imgBoat.src = './images1/pirate240.png'; // Set source path
+            break;
+        case 270:
+            this.imgBoat.src = './images1/pirate270.png'; // Set source path
+            break;
+        case 300:    
+            this.imgBoat.src = './images1/pirate300.png'; // Set source path
+            break;
+        case 330:
+            this.imgBoat.src = './images1/pirate330.png'; // Set source path
             break;
         default:
-            this.imgBoat.src = './images/Pirate0.png'; // Set source path
+            this.imgBoat.src = './images1/pirate270.png'; // Set source path
     };
 
     this.ctx.drawImage(this.imgBoat, this.x, this.y, this.size, this.size);
