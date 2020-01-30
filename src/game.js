@@ -8,6 +8,7 @@ function Game() {
     this.gameIsOver = false;
     this.gameScreen = null;
     //this.wind = null;
+    this.counter = 0;
     
     
 }
@@ -65,28 +66,17 @@ Game.prototype.startLoop = function () {
 // console.log('inloop');
 // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
   
-// WIND SPEED
-    // 0.0.0 Wind speed Update
-        // this.wind.speedUpdate() --> THIS WILL UPDATE this.wind.speed
-    //0.0.1 pass the wind speed to the player
-        // this.player.windSpeed (initialise and assign the player wind property) = this.wind.speed
-            
-
-
-// WIND ANGLE ---------------
-    // 0.0.0 Wind angle Update
-        // this.wind.angleUpdate() --> THSI WILL UPDATE this.wind.angle
-    //0.0.1 pass the wind angle to the player
-        // this.player.windAngle (initialise and assign the wind property) = this.wind.angle
     
         // 0.1. Player Position Update
-    
 
-    
         
         this.player.updatePosition()
+        this.counter++;
+        if (this.counter % 60 === 0) {
+            console.log('x',this.player.x);
+            console.log('y',this.player.y);
+        }
         this.player.handleScreenCollision()
-        this.player.updateApparentSpeed()
         this.checkCollisions()
 
 
