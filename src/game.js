@@ -6,6 +6,7 @@ function Game() {
     // this.enemies = [];
     this.player = null;
     this.island = null;
+    this.windRose = null;
     this.gameIsOver = false;
     this.gameScreen = null;
     //this.wind = null;
@@ -34,12 +35,15 @@ Game.prototype.start = function () {
   this.canvas.setAttribute('width', this.containerWidth);
   this.canvas.setAttribute('height', this.containerHeight);
 
-    // Create a new player and the wind for the current game
-    //this.wind = new Wind(this.canvas, -5);
+    // Create a new player
+    //              island
+    //              windRose 
     this.player = new Player(this.canvas, 4);
     this.island = new Island(this.canvas);
+    this.windRose = new WindRose(this.canvas);
+
       // Add event listener for moving the player
-    this.handleKeyDown = function(event) {
+        this.handleKeyDown = function(event) {
         if (event.key === 'ArrowLeft') {
             console.log('LEFT');
             this.player.setDirection('left');
@@ -66,16 +70,13 @@ Game.prototype.start = function () {
 
 Game.prototype.startLoop = function () {
     var loop = function() {
-// console.log('inloop');
-// 1. UPDATE THE STATE OF PLAYER AND ENEMIES
-  
+       // console.log('inloop');
     
-        // 0.1. Player Position Update
-
-        
+        // Player Position Update
         this.player.updatePosition()
+        
         this.counter++;
-    
+        // Data control - console.log()
         if (this.counter % 60 === 0) {
             console.log('x',this.player.x);
             console.log('y',this.player.y);
@@ -84,43 +85,32 @@ Game.prototype.startLoop = function () {
             console.log('Delta',String(this.player.anglePlayerWind));
         }
 
-        // wind change
-
-        if (this.counter % 300 === 0) {
+        // wind shift
+        if (this.counter % 180 === 0) {
             this.counter = 0;
-
-        this.player.shiftWindAngle();
+            this.player.shiftWindAngle();
         }
         
+        // Collision
         this.player.handleScreenCollision()
         this.checkCollisions()
-
-
-    // 1. Create new enemies randomly
-    
-    // 2. Check if player had hit any enemy (check all enemies)
-    
-    // 3. Check if player is going off the screen
-
-    // 4. Move existing enemies
-
-    // 5. Check if any enemy is going of the screen
 
 
 // 2. CLEAR THE CANVAS
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-
-
-
 // 3. UPDATE THE CANVAS
+
     // Draw the player
     this.island.draw();
+
+    this.windRose.draw();
+
     this.player.draw();
     // Draw the enemies
 
 //  5. Update Game data/stats
-this.updateGameStats();
+    this.updateGameStats();
     // 4. TERMINATE LOOP IF GAME IS OVER
         if (!this.gameIsOver) {
             window.requestAnimationFrame(loop);

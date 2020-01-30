@@ -46,7 +46,7 @@ function main() {
                         <span class="value"></span>
                     </div>
                     <div class="wind-direction">
-                    <span class="label">wind direction:</span>
+                    <span class="label">wind Angle:</span>
                     <span class="value"></span>
                 </div>
                 </header>
@@ -65,20 +65,7 @@ function main() {
     };
 
         // -- game over screen
-        function createGameEndScreen(score,endGameStatus) {
-            if (endGameStatus === 'win') {
-                gameOverScreen = buildDom(`
-                <main>
-                  <h1>Game won</h1>
-                  <p>Your score: <span>${score}</span></p>
-                  <button>Play again</button>
-                  </main>
-              `);
-            }
-              // Call the gameOver function from `main` to show the Game Over Screen
-             else if (endGameStatus === 'lost') {
-
-            
+        function createGameOverScreen(score) {
             gameOverScreen = buildDom(`
               <main>
                 <h1>Game over</h1>
@@ -86,8 +73,7 @@ function main() {
                 <button>Restart</button>
                 </main>
             `);
-             }
-
+          
             var button = gameOverScreen.querySelector('button');
             button.addEventListener('click', startGame);
           
@@ -113,13 +99,16 @@ function main() {
         removeGameOverScreen();
         game.start();
           // End the game
-        game.passGameOverCallback(gameOver);
+        game.passGameOverCallback(function() {
+            console.log('GO_check');		// <-- UPDATE
+            gameOver(game.player.score);					// <-- UPDATE
+          });
     };
     
-        function gameOver(score, status) {           
+        function gameOver(score) {           
             removeGameScreen();
-            createGameEndScreen(score, status);
-        }
+            createGameOverScreen(score);
+          }
     
 
         // -- initialize Splash screen on initial start

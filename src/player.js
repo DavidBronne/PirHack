@@ -13,6 +13,8 @@ function Player(canvas, lives) {
     this.anglePlayerWind = 0;
     this.score = 0;
     this.imgBoat;
+    // this.imgWindRose;
+    // this.imgWindArrow;
 }
 
 
@@ -28,6 +30,7 @@ Player.prototype.setDirection = function(direction) {
 
 };
 
+// Tables: cos , sin
 var cosTable = {
 
     0: 1,
@@ -66,7 +69,6 @@ var windAnglelist = [0,30,60,90,120,150,180,210,240,270,360];
 
 Player.prototype.shiftWindAngle = function(){
     this.windAngle = windAnglelist[Math.floor(Math.random() * windAnglelist.length)]; //to be triggered acc. to level
-
   }
 
 Player.prototype.compareBoatWindAngle = function() {
@@ -165,16 +167,6 @@ Player.prototype.removeLife = function() {
     console.log('this.lives', this.lives);
 };
 
-// Player.prototype.draw = function() {
-//     this.ctx.fillStyle = '#66D3FA';
-//     // fillRect(x, y, width, height)
-//     this.ctx.fillRect(
-//         this.x,
-//         this.y,
-//         this.size,
-//         this.size,
-//     );
-// };
 
 Player.prototype.draw = function() {
     
