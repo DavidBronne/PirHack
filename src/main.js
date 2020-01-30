@@ -45,6 +45,10 @@ function main() {
                         <span class="label">Score:</span>
                         <span class="value"></span>
                     </div>
+                    <div class="wind-direction">
+                    <span class="label">Wind Angle:</span>
+                    <span class="value"></span>
+                </div>
                 </header>
                 <div class="canvas-container">
                     <canvas></canvas>

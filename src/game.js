@@ -24,6 +24,7 @@ Game.prototype.start = function () {
   // Save reference to the score and lives elements
   this.livesElement = this.gameScreen.querySelector('.lives .value');
   this.scoreElement = this.gameScreen.querySelector('.score .value');
+  this.windAngleElement = this.gameScreen.querySelector('.wind-direction .value');
 
   // Set the canvas dimensions to match the parent
   this.containerWidth = this.canvasContainer.offsetWidth;
@@ -75,6 +76,9 @@ Game.prototype.startLoop = function () {
         if (this.counter % 60 === 0) {
             console.log('x',this.player.x);
             console.log('y',this.player.y);
+            console.log('windAngle',this.player.windAngle);
+            console.log('boatAngle',this.player.boatAngle);
+            console.log('Delta',String(this.player.anglePlayerWind));
         }
         this.player.handleScreenCollision()
         this.checkCollisions()
@@ -134,6 +138,7 @@ Game.prototype.updateGameStats = function() {
     //this.score += 1;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.player.score;
+    this.windAngleElement.innerHTML = this.player.windAngle;
   };
 
 

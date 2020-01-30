@@ -7,9 +7,9 @@ function Player(canvas, lives) {
     this.size = 100;
     this.x = canvas.width / 2;
     this.y = canvas.height / 2;
-    this.boatAngle = 0;
-    this.windAngle = 0;
-    this.windSpeed = 2;
+    this.boatAngle = 270;
+    this.windAngle = 90;
+    this.windSpeed = 1;
     this.anglePlayerWind = 0;
     this.score = 0;
     this.imgBoat;
@@ -86,23 +86,23 @@ var windAnglelist = [0,30,60,90,120,150,180,210,240,270,360];
 
 Player.prototype.shiftWindAngle = function(){
     this.windAngle = windAnglelist[Math.floor(Math.random() * windAnglelist.length)]; //to be triggered acc. to level
-}
+
+  }
 
 Player.prototype.compareBoatWindAngle = function() {
     this.anglePlayerWind = this.boatAngle - this.windAngle;
 }
  
 Player.prototype.updatePosition = function() {
-    
+
     this.compareBoatWindAngle();
-    console.log(String(this.anglePlayerWind));
+    
     switch (String(this.anglePlayerWind)) {
         case '180':
         case '-180':
           this.x = this.x + (this.windSpeed/2) * cosTable[this.windAngle];
           this.y = this.y + (this.windSpeed/2) * sinTable[this.windAngle];
           break;
-          
         case '0':
         case '360':
           this.x = this.x + (this.windSpeed) * cosTable[this.windAngle];
@@ -113,6 +113,10 @@ Player.prototype.updatePosition = function() {
         case '-30':
         case '150':
         case '-150':
+        case '-330':
+        case '330':
+        case '-210':
+        case '210':
           this.x = this.x + (this.windSpeed/1,2) * cosTable[this.boatAngle];
           this.y = this.y + (this.windSpeed/1,2) * sinTable[this.boatAngle];
           break;
@@ -121,12 +125,18 @@ Player.prototype.updatePosition = function() {
         case '-60':
         case '120':
         case '-120':
+        case '-240':
+        case '240':
+        case '-300':
+        case '300':
           this.x = this.x + (this.windSpeed/1,4) * cosTable[this.boatAngle];
           this.y = this.y + (this.windSpeed/1,4) * sinTable[this.boatAngle];
           break;
 
         case '90':
         case '-90':
+        case '-270':
+        case '270':
           this.x = this.x + (this.windSpeed/1,6) * cosTable[this.boatAngle];
           this.y = this.y + (this.windSpeed/1,6) * sinTable[this.boatAngle];    
           break;    
