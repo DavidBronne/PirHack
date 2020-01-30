@@ -6,7 +6,7 @@ function Player(canvas, lives) {
     this.lives = lives;
     this.size = 100;
     this.x = canvas.width / 2;
-    this.y = canvas.height / 2;
+    this.y = canvas.height * 0.75;
     this.boatAngle = 270;
     this.windAngle = 90;
     this.windSpeed = 1;
@@ -29,17 +29,7 @@ Player.prototype.setDirection = function(direction) {
 };
 
 var cosTable = {
-    // -30: 0.866,
-    // -60: 0.5,
-    // -90: 0,
-    // -120: -0.5,
-    // -150: -0.866,
-    // -180: -1,
-    // -210: -0.866,
-    // -240: -0.5,
-    // -270: 0,
-    // -300: 0.5,
-    // -330: 0.866,
+
     0: 1,
     30: 0.866,
     60: 0.5,
@@ -56,17 +46,7 @@ var cosTable = {
   }
   
   var sinTable = {
-    // -30: -0.5,
-    // -60: -0.866,
-    // -90: -1,
-    // -120: -0.866,
-    // -150: -0.5,
-    // -180: 0,
-    // -210: 0.5,
-    // -240: 0.866,
-    // -270: 1,
-    // -300: 0.866,
-    // -330: 0.5,
+
     0: 0,
     30: 0.5,
     60: 0.866,
@@ -143,28 +123,36 @@ Player.prototype.updatePosition = function() {
       }
 }
 
-//Player.prototype.didCollide = function(enemy) {};
+Player.prototype.didCollide = function(island) {
+  var playerLeft = this.x;
+  var playerRight = this.x + this.size;
+  var playerTop = this.y;
+  var playerBottom = this.y + this.size;
+
+  var islandLeft = island.x;
+  var islandRight = island.x + island.size;
+  var islandTop = island.y;
+  var islandBottom = island.y + island.size;
+
+  // Check if the island intersects any of the player's sides
+  var crossLeft = islandLeft <= playerRight && islandLeft >= playerLeft;
+    
+  var crossRight = islandRight >= playerLeft && islandRight <= playerRight;
+  
+  var crossBottom = islandBottom >= playerTop && islandBottom <= playerBottom;
+  
+  var crossTop = islandTop <= playerBottom && islandTop >= playerTop;
+
+  if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
+    return true;
+  }
+  return false;
+};
 
 // handleScreenCollision()
 Player.prototype.handleScreenCollision = function() {
     
-    var screenLeft = 0;
-    var screenRight = this.canvas.width - 50;
-
-    if (this.x < screenLeft) this.boatAngle = 90;
-    else if (this.x > screenRight) this.boatAngle = -90;
-
-    var screenTop = 0;
-    var screenBottom = this.canvas.height;
-
-    if (this.y < screenTop) {
-        this.score++;
-        console.log('this.score', this.score);
-        this.x = this.canvas.width / 2;
-        this.y = this.canvas.height / 2;
-    }
-
-    else if (this.y > screenBottom) {
+     if (this.y + this.size > this.canvas.height || this.y < 0 || this.x < 0 || this.x + this.size > this.canvas.width) {
         this.removeLife();
         this.x = this.canvas.width / 2;
         this.y = this.canvas.height / 2;

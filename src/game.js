@@ -5,10 +5,12 @@ function Game() {
     this.ctx = null;
     // this.enemies = [];
     this.player = null;
+    this.island = null;
     this.gameIsOver = false;
     this.gameScreen = null;
     //this.wind = null;
     this.counter = 0;
+    this.score = 0;
     
     
 }
@@ -34,8 +36,8 @@ Game.prototype.start = function () {
 
     // Create a new player and the wind for the current game
     //this.wind = new Wind(this.canvas, -5);
-    this.player = new Player(this.canvas, 2);
-
+    this.player = new Player(this.canvas, 4);
+    this.island = new Island(this.canvas);
       // Add event listener for moving the player
     this.handleKeyDown = function(event) {
         if (event.key === 'ArrowLeft') {
@@ -73,6 +75,7 @@ Game.prototype.startLoop = function () {
         
         this.player.updatePosition()
         this.counter++;
+    
         if (this.counter % 60 === 0) {
             console.log('x',this.player.x);
             console.log('y',this.player.y);
@@ -80,6 +83,15 @@ Game.prototype.startLoop = function () {
             console.log('boatAngle',this.player.boatAngle);
             console.log('Delta',String(this.player.anglePlayerWind));
         }
+
+        // wind change
+
+        if (this.counter % 300 === 0) {
+            this.counter = 0;
+
+        this.player.shiftWindAngle();
+        }
+        
         this.player.handleScreenCollision()
         this.checkCollisions()
 
@@ -103,6 +115,7 @@ Game.prototype.startLoop = function () {
 
 // 3. UPDATE THE CANVAS
     // Draw the player
+    this.island.draw();
     this.player.draw();
     // Draw the enemies
 
@@ -126,11 +139,15 @@ this.updateGameStats();
 
 
 Game.prototype.checkCollisions = function () {
-    //with enemies - backlog
-    
-    //with screenBottom
-    if (this.player.lives === 0) {
-        this.gameOver();
+    //with Island tratget
+ 
+    if (this.player.didCollide(this.island)) {
+        this.score += 1;
+        this.gameEnd('win');
+    }
+    //with screen frame
+    else if (this.player.lives === 0) {
+        this.gameEnd('lost');
     }
 };
 
@@ -146,11 +163,18 @@ Game.prototype.passGameOverCallback = function(gameOver) {
     this.onGameOverCallback = gameOver;
 };
 
-Game.prototype.gameOver = function () {
+Game.prototype.gameEnd = function (endGameStatus) {
     this.gameIsOver = true;
-    console.log('GAME OVER');
+    if (endGameStatus === 'win') {
+        console.log('win');
+        this.onGameOverCallback(this.score, endGameStatus);
+    }
       // Call the gameOver function from `main` to show the Game Over Screen
-      this.onGameOverCallback();
+     else if (endGameStatus === 'lost') {
+        console.log('lost');
+        this.onGameOverCallback(this.score, endGameStatus);
+    }
+
 };
 
 Game.prototype.removeGameScreen = function() {
