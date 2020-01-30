@@ -160,9 +160,10 @@ wind.prototype.shift{
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](https://github.com/chloeleteinturier/Tetris)
-[Link Deploy](xxxxxx)
+[Link Repo](https://github.com/DavidBronne/PirHack)
+[Link Deploy](https://davidbronne.github.io/PirHack/)
 
 
 ### Slides
 URls for the project presentation (slides)
+https://docs.google.com/presentation/d/1PZSjzkocxsTua1_kSc6NvyLzslaYmE3OWKzLxPaRD0s/edit#slide=id.p
