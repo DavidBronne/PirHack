@@ -9,7 +9,7 @@ function Island(canvas){
 Island.prototype.draw = function() {
     
     this.imgIsland = new Image();   // Create new <img> element
-    this.imgIsland.src = './../images/islandTarget.png';
+    this.imgIsland.src = './images/islandTarget.png';
     this.ctx.drawImage(this.imgIsland, this.x, this.y, this.size, this.size);
     };
 
