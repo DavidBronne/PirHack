@@ -9,6 +9,7 @@ function Game() {
     this.gameScreen = null;
     //this.wind = null;
     
+    
 }
 
 // Create `ctx`, a `player` and start the Canvas loop
