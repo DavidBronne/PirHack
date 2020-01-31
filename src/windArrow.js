@@ -1,9 +1,9 @@
 function WindArrow(canvas){
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
-    this.size = 150;
-    this.x = canvas.width / 2;
-    this.y = canvas.height * 0.10;
+    this.size = 700;
+    this.x = canvas.width * 0.2;
+    this.y = canvas.height * 0.2;
     this.arrowImg = {};
     this.arrowImg[0] = new Image();
     this.arrowImg[0].src = './images1/windArrow000.png';

@@ -2,8 +2,8 @@ function Island(canvas){
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.size = 100;
-    this.x = canvas.width * 0.75;
-    this.y = canvas.height * 0.25;
+    this.x = canvas.width * 0.9;
+    this.y = canvas.height * 0.1;
 }
 
 Island.prototype.draw = function() {

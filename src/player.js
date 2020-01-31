@@ -6,7 +6,7 @@ function Player(canvas, lives) {
     this.lives = lives;
     this.size = 100;
     this.x = canvas.width * 0.1;
-    this.y = canvas.height * 0.8;
+    this.y = canvas.height * 0.9;
     this.boatAngle = 270;
     this.windAngle = 90;
     this.windSpeed = 1;
@@ -157,8 +157,8 @@ Player.prototype.handleScreenCollision = function() {
     
      if (this.y + this.size > this.canvas.height || this.y < 0 || this.x < 0 || this.x + this.size > this.canvas.width) {
         this.removeLife();
-        this.x = this.canvas.width / 2;
-        this.y = this.canvas.height / 2;
+        this.x = this.canvas.width * 0.1;
+        this.y = this.canvas.height * 0.75;
     }
 };
 
