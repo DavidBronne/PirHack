@@ -9,9 +9,10 @@ function Game() {
     this.windRose = null;
     this.gameIsOver = false;
     this.gameScreen = null;
-    //this.wind = null;
+    this.windAngle = 90;
     this.counter = 0;
     this.score = 0;
+    this.windArrow = null;
     
     
 }
@@ -41,6 +42,8 @@ Game.prototype.start = function () {
     this.player = new Player(this.canvas, 4);
     this.island = new Island(this.canvas);
     this.windRose = new WindRose(this.canvas);
+    this.windArrow = new WindArrow(this.canvas);
+
 
       // Add event listener for moving the player
         this.handleKeyDown = function(event) {
@@ -86,9 +89,11 @@ Game.prototype.startLoop = function () {
         }
 
         // wind shift
-        if (this.counter % 180 === 0) {
+        if (this.counter % 120 === 0) {
             this.counter = 0;
-            this.player.shiftWindAngle();
+            // this.player.shiftWindAngle();
+            this.windAngle = this.player.shiftWindAngle();
+            console.log('this.windAngle :', this.windAngle);
         }
         
         // Collision
@@ -107,6 +112,9 @@ Game.prototype.startLoop = function () {
     this.windRose.draw();
 
     this.player.draw();
+
+    this.windArrow.draw(this.player.windAngle);
+    console.log('this.player.windAngle',typeof this.player.windAngle);
     // Draw the enemies
 
 //  5. Update Game data/stats

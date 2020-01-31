@@ -2,7 +2,7 @@ function Island(canvas){
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.size = 100;
-    this.x = canvas.width / 2;
+    this.x = canvas.width * 0.75;
     this.y = canvas.height * 0.25;
 }
 
