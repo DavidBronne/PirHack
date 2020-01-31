@@ -134,5 +134,17 @@ html {
     align-items: center;
   }
 
+  .lost .you {
+    color: red;
+    font-size: 12em;
+    padding: 117px;
+  }
+  
+  .win .you {
+    color: green;
+    font-size: 6em;
+    padding: 117px;
+  }
+
   
 

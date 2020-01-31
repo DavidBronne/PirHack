@@ -71,7 +71,7 @@ function main() {
                 <div class=${endGameStatus}>
                     <h1>Game over</h1>
                     <p>Your score: <span>${score}</span></p>
-                    <p>Your EndGameStatus: <span>${endGameStatus}</span></p>
+                    <p class="you">You <span>${endGameStatus}</span></p>
                     <button>Restart</button>
                 </div>
             </main>
