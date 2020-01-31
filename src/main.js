@@ -65,13 +65,16 @@ function main() {
     };
 
         // -- game over screen
-        function createGameOverScreen(score) {
+        function createGameOverScreen(score,endGameStatus) {
             gameOverScreen = buildDom(`
               <main>
-                <h1>Game over</h1>
-                <p>Your score: <span>${score}</span></p>
-                <button>Restart</button>
-                </main>
+                <div class=${endGameStatus}>
+                    <h1>Game over</h1>
+                    <p>Your score: <span>${score}</span></p>
+                    <p>Your EndGameStatus: <span>${endGameStatus}</span></p>
+                    <button>Restart</button>
+                </div>
+            </main>
             `);
           
             var button = gameOverScreen.querySelector('button');
@@ -101,13 +104,13 @@ function main() {
           // End the game
         game.passGameOverCallback(function() {
             console.log('GO_check');		// <-- UPDATE
-            gameOver(game.player.score);					// <-- UPDATE
+            gameOver(game.player.score,game.endGameStatus);					// <-- UPDATE
           });
     };
     
-        function gameOver(score) {           
+        function gameOver(score,endGameStatus) {           
             removeGameScreen();
-            createGameOverScreen(score);
+            createGameOverScreen(score,endGameStatus);
           }
     
 

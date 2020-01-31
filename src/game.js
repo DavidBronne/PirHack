@@ -141,11 +141,13 @@ Game.prototype.checkCollisions = function () {
  
     if (this.player.didCollide(this.island)) {
         this.score += 1;
-        this.gameEnd('win');
+        this.endGameStatus = 'win';
+        this.gameEnd();
     }
     //with screen frame
     else if (this.player.lives === 0) {
-        this.gameEnd('lost');
+        this.endGameStatus = 'lost';
+        this.gameEnd();
     }
 };
 
@@ -161,16 +163,18 @@ Game.prototype.passGameOverCallback = function(gameOver) {
     this.onGameOverCallback = gameOver;
 };
 
-Game.prototype.gameEnd = function (endGameStatus) {
+Game.prototype.gameEnd = function () {
     this.gameIsOver = true;
-    if (endGameStatus === 'win') {
+    if (this.endGameStatus === 'win') {
         console.log('win');
-        this.onGameOverCallback(this.score, endGameStatus);
+        this.onGameOverCallback(this.score,this.endGameStatus);
+
     }
       // Call the gameOver function from `main` to show the Game Over Screen
-     else if (endGameStatus === 'lost') {
+     else if (this.endGameStatus === 'lost') {
         console.log('lost');
-        this.onGameOverCallback(this.score, endGameStatus);
+        this.onGameOverCallback(this.score,this.endGameStatus);
+        //console.log('this.endGameStatus :', this.endGameStatus);
     }
 
 };

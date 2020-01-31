@@ -108,5 +108,31 @@ html {
   
   }
 
+  .win {
+    width: 1400px;
+    height: 900px;
+    background-image: url('../images1/pirate-party.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lost {
+    width: 1400px;
+    height: 900px;
+    background-image: url('../images1/deadPirate.png');
+    /* background-repeat: no-repeat; */
+    /* background-size: contain; */
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   
 
