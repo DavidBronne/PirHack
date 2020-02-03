@@ -1,78 +1,79 @@
 'use strict'
 
-function Game() {
-    this.canvas = null;
-    this.ctx = null;
-    // this.enemies = [];
-    this.player = null;
-    this.island = null;
-    this.windRose = null;
-    this.gameIsOver = false;
-    this.gameScreen = null;
-    this.windAngle = 90;
-    this.counter = 0;
-    this.score = 0;
-    this.windArrow = null;
-    
-    
-}
+class Game {
+    constructor(){
+        this.canvas = null;
+        this.ctx = null;
+        // this.enemies = [];
+        this.player = null;
+        this.island = null;
+        this.windRose = null;
+        this.gameIsOver = false;
+        this.gameScreen = null;
+        this.windAngle = 90;
+        this.counter = 0;
+        this.score = 0;
+        this.windArrow = null;
+    }
+
+    start () {
+        // Save reference to canvas and container. Create ctx
+        this.canvasContainer = document.querySelector('.canvas-container');
+        this.canvas = this.gameScreen.querySelector('canvas');
+        this.ctx = this.canvas.getContext('2d');
+      
+        // Save reference to the score and lives elements
+        this.livesElement = this.gameScreen.querySelector('.lives .value');
+        this.scoreElement = this.gameScreen.querySelector('.score .value');
+        this.windAngleElement = this.gameScreen.querySelector('.wind-direction .value');
+      
+        // Set the canvas dimensions to match the parent
+        this.containerWidth = this.canvasContainer.offsetWidth;
+        this.containerHeight = this.canvasContainer.offsetHeight;
+        this.canvas.setAttribute('width', this.containerWidth);
+        this.canvas.setAttribute('height', this.containerHeight);
+      
+          // Create a new player
+          //              island
+          //              windRose 
+          this.player = new Player(this.canvas, 4);
+          this.island = new Island(this.canvas);
+          this.windRose = new WindRose(this.canvas);
+          this.windArrow = new WindArrow(this.canvas);
+      
+      
+            // Add event listener for moving the player
+              this.handleKeyDown = (event) => {
+              if (event.key === 'ArrowLeft') {
+                  console.log('LEFT');
+                  this.player.setDirection('left');
+              }
+              else if (event.key === 'ArrowRight') {
+                  console.log('RIGHT');
+                  this.player.setDirection('right');
+              };
+            };
+            // Start the canvas requestAnimationFrame loop
+            this.startLoop();
+            
+          // Add event listener for moving the player
+          // Any function provided to eventListener 
+          // is always called by window (this === window)!
+          // So, we have to bind `this` to the `game` object,
+          // to prevent it from pointing to the `window` object
+          document.body.addEventListener(
+              'keydown',
+              this.handleKeyDown
+          );
+          
+        };
+
 
 // Create `ctx`, a `player` and start the Canvas loop
 
-Game.prototype.start = function () {
-  // Save reference to canvas and container. Create ctx
-  this.canvasContainer = document.querySelector('.canvas-container');
-  this.canvas = this.gameScreen.querySelector('canvas');
-  this.ctx = this.canvas.getContext('2d');
 
-  // Save reference to the score and lives elements
-  this.livesElement = this.gameScreen.querySelector('.lives .value');
-  this.scoreElement = this.gameScreen.querySelector('.score .value');
-  this.windAngleElement = this.gameScreen.querySelector('.wind-direction .value');
-
-  // Set the canvas dimensions to match the parent
-  this.containerWidth = this.canvasContainer.offsetWidth;
-  this.containerHeight = this.canvasContainer.offsetHeight;
-  this.canvas.setAttribute('width', this.containerWidth);
-  this.canvas.setAttribute('height', this.containerHeight);
-
-    // Create a new player
-    //              island
-    //              windRose 
-    this.player = new Player(this.canvas, 4);
-    this.island = new Island(this.canvas);
-    this.windRose = new WindRose(this.canvas);
-    this.windArrow = new WindArrow(this.canvas);
-
-
-      // Add event listener for moving the player
-        this.handleKeyDown = function(event) {
-        if (event.key === 'ArrowLeft') {
-            console.log('LEFT');
-            this.player.setDirection('left');
-        }
-        else if (event.key === 'ArrowRight') {
-            console.log('RIGHT');
-            this.player.setDirection('right');
-        };
-    };
-    
-    // Add event listener for moving the player
-    // Any function provided to eventListener 
-    // is always called by window (this === window)!
-    // So, we have to bind `this` to the `game` object,
-    // to prevent it from pointing to the `window` object
-    document.body.addEventListener(
-        'keydown',
-        this.handleKeyDown.bind(this)
-    );
-    
-    // Start the canvas requestAnimationFrame loop
-    this.startLoop();
-};
-
-Game.prototype.startLoop = function () {
-    var loop = function() {
+ startLoop () {
+    let loop = () => {
        // console.log('inloop');
     
         // Player Position Update
@@ -125,7 +126,7 @@ Game.prototype.startLoop = function () {
         }
 
 
-    }.bind(this);
+    };
         	// As loop function will be continuously invoked by
 // the `window` object- `window.requestAnimationFrame(loop)`
 // we have to bind the function so that value of `this` is 
@@ -136,7 +137,7 @@ Game.prototype.startLoop = function () {
 } 
 
 
-Game.prototype.checkCollisions = function () {
+checkCollisions  () {
     //with Island tratget
  
     if (this.player.didCollide(this.island)) {
@@ -151,7 +152,7 @@ Game.prototype.checkCollisions = function () {
     }
 };
 
-Game.prototype.updateGameStats = function() {
+updateGameStats () {
     //this.score += 1;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.player.score;
@@ -159,11 +160,11 @@ Game.prototype.updateGameStats = function() {
   };
 
 
-Game.prototype.passGameOverCallback = function(gameOver) {
+passGameOverCallback (gameOver) {
     this.onGameOverCallback = gameOver;
 };
 
-Game.prototype.gameEnd = function () {
+gameEnd () {
     this.gameIsOver = true;
     if (this.endGameStatus === 'win') {
         console.log('win');
@@ -179,6 +180,11 @@ Game.prototype.gameEnd = function () {
 
 };
 
-Game.prototype.removeGameScreen = function() {
+removeGameScreen () {
     this.gameScreen.remove(); // remove() is the DOM method which removes the DOM Node  
   };
+
+
+
+
+}

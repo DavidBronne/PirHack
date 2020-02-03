@@ -1,5 +1,5 @@
 'use strict';
-
+// Unused
 function Wind(canvas, speed) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
